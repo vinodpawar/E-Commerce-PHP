@@ -11,7 +11,7 @@ include("functions/functions.php");
 <link rel="stylesheet" href="./styles/style.css" media="screen">
 <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-	<title>E-Commerce Site</title>
+	<title>E-Commerce</title>
 
 </head>
 
