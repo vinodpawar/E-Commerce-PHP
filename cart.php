@@ -16,6 +16,8 @@ if(isset($_POST['checkOut'])) {
 
 
 
+
+
 ?>
 
 <html>
@@ -214,15 +216,17 @@ if(isset($_POST['checkOut'])) {
 					
 					?>
 					
-						<select onChange="" >
-							<option <?PHP if($quantity == '1') echo "selected"; ?> value="">1</option>
-							<option <?PHP if($quantity == '0') echo "selected"; ?> value="">0</option>
-							<option <?PHP if($quantity == '2') echo "selected"; ?> value="">2</option>
-							<option <?PHP if($quantity == '3') echo "selected"; ?> value="">3</option>
-							<option <?PHP if($quantity == '4') echo "selected"; ?> value="">4</option>
+						<select onChange="this.form.submit()" name="noQuantity">
+							<option <?PHP if($quantity == '1') echo "selected"; ?> value="1">1</option>
+							<option <?PHP if($quantity == '0') echo "selected"; ?> value="0">0</option>
+							<option <?PHP if($quantity == '2') echo "selected"; ?> value="2">2</option>
+							<option <?PHP if($quantity == '3') echo "selected"; ?> value="3">3</option>
+							<option <?PHP if($quantity == '4') echo "selected"; ?> value="4">4</option>
 						</select>
 					
 					</td>
+					
+					<input type="hidden" name="hidden" value="<?PHP echo $pro_id; ?>">
 					
 					<?PHP
 			
@@ -309,11 +313,16 @@ if(isset($_POST['checkOut'])) {
 	
 	if(isset($_POST['remove'])) {
 		
+		$pro_id_delete = $_POST['hidden'];
+		
 		echo "<script>window.alert('Are you sure to remove this product from the cart?')</script>";
 		
-		$delete_product = "delete from cart where p_id='$pro_id' AND ip_add='$ip'";
+		$delete_product = "delete from cart where p_id='$pro_id_delete' AND ip_add='$ip'";
 				
 		$run_delete = mysqli_query($con, $delete_product);
+		
+		
+		
 				
 		if($run_delete) {
 		
@@ -346,6 +355,19 @@ if(isset($_POST['checkOut'])) {
 	*/	
 	
 		
+	/* if(isset($_POST['noQuantity'])) {
+	
+	$noQuantity = $_POST['noQuantity'];
+	
+	$insertChangedQtyQuery = "INSERT INTO cart(qty) VALUES($noQuantity) where p_id='$pro_id' AND ip_add='$ip'";
+	
+	
+	
+	echo $insertChangedQtyQuery;
+	
+	
+	
+	} */
 		
 		
 		
