@@ -96,7 +96,7 @@ include("functions/functions.php");
 	
 	<?PHP getIp(); ?>
 	
-	<form action="cart.php" method="POST">
+	
 	
 	<div class="col-md-8">
 	
@@ -118,6 +118,8 @@ include("functions/functions.php");
 	
 	<?PHP
 	
+	// displaying all products added from cart on cart.php
+	
 	$sr = 0;
 	
 	$sub_total = 0;
@@ -128,11 +130,19 @@ include("functions/functions.php");
 	
 	$ip = getIp();
 	
+	$select_name = 0;
+	
 	$select_price = "select * from cart where ip_add='$ip'";
 	
 	$run_price = mysqli_query($con, $select_price);
 	
 	while($p_price = mysqli_fetch_array($run_price)){
+		
+		?>	
+	
+		<form action="cart.php" method="POST">
+		
+		<?PHP
 		
 		$pro_id = $p_price['p_id'];
 		
@@ -153,49 +163,85 @@ include("functions/functions.php");
 			$total_price = array_sum($product_price);
 			
 			$sub_total += $total_price;
-		
-		
-	
 	
 	?>
 	
-	  
 				<tr  align="center">
 				
-					<td><?PHP echo $sr += 1 . "." ; ?></td>
+					<td>
+					
+						<?PHP echo $sr += 1 . "." ; ?>
+					
+					</td>
 				
 					<td>
 					
-					<img src="admin/product_images/<?PHP echo $product_image ?>" width="60" height="60"/><br><br>
-					<?PHP echo $product_name ?>
+						<img src="admin/product_images/<?PHP echo $product_image ?>" width="60" height="60"/><br><br>
+						<?PHP echo $product_name ?>
 					
 					</td>
+		
 					<td>
 					
-					<select style="width: 40px;" name="qty" onchange="this.form.submit()">	
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					</select>
+						<input type="text" size="4" name="qty" value="">	
 					
 					</td>
+					
+					<?PHP
+			
+		}
+			
+						$qty = 0;
+						
+						$_SESSION['qty'] = $qty;
+			
+						$update_cart_query = "update cart set qty='$qty' where ip_add='$ip' AND p_id=''";
+			
+						$update_cart_query_result = mysqli_query($con, $update_cart_query);
+						
+						$_SESSION['qty'] = $qty;
+						
+						$sub_total = $sub_total * $qty;
+						
+						//echo "<script>alert('$qty, $ip, $pro_id');</script>";
+			
+						/*
+			
+						if($update_cart_query_result) {
+				
+							echo "<script>alert('Cart updated');</script>";
+						}
+			
+						else 
+							echo "<script>alert('Cart is not updated');</script>";
+						
+						}
+			
+						*/
+					
+					
+		
+					?>
+					
 				    <td><?PHP echo "Rs.".$single_price; ?></td>
-					<td><input type="checkbox" name="remove[]" value="<?PHP echo $pro_id; ?>" /></td>
+					
+						<td>
+						
+							<input type="submit" class="btn btn-danger" value="X" name="remove" />
+						
+						</td>
+					
 					
 					
 					
 				</tr>
 				
+				</form>
 				
-				
-	<?PHP } } ?>
+				<?PHP }  ?>
 	
-	
-	
-    
-  </table>
+		</table>
+		
 		<hr  style="border-width: 2px;"/>
 	
 		<div class="" style="text-align: right;">
@@ -205,21 +251,45 @@ include("functions/functions.php");
 		<hr style="border-width: 2px;"/>
 		
 		<div style="text-align: right;">
-			<input type="submit" class="btn btn-danger" value="Update Cart" name="update_cart"/>
+		<!--	<input type="submit" class="btn btn-danger" value="Update Cart" name="update_cart" /> -->
 			<input type="submit" class="btn btn-primary" value="Continue Shopping" />
-			<input type="submit" class="btn btn-success" value="Check Out" href="checkout.php" />
+			<input type="submit" class="btn btn-success" value="Check Out" href="#" />
 		</div>
-			
-		
-	
-		
 		
 	</div>
+	
 </div>
-</form>
+
+
+	
 
 	<?PHP
 	
+	global $con;
+	
+	global $pro_id;
+	
+	$ip = getIp();
+	
+	if(isset($_POST['remove'])) {
+		
+		echo "<script>window.alert('Are you sure to remove this product from the cart?')</script>";
+		
+		$delete_product = "delete from cart where p_id='$pro_id' AND ip_add='$ip'";
+				
+		$run_delete = mysqli_query($con, $delete_product);
+				
+		if($run_delete) {
+		
+			echo "<script>window.open('cart.php','_self')</script>";
+		
+		}
+		
+	}
+	
+	
+	
+	/*
 		global $con;
 		
 		$ip = getIp();
@@ -238,20 +308,13 @@ include("functions/functions.php");
 				}
 			}
 			
+	*/	
+	
 		
-		}
 		
-		if(isset($_POST['qty'])) {
-			
-			$qty = $_POST['qty'];
-			
-			$update_cart_query = "update cart set qty='$qty' where ip_add='$ip'";
-			
-			$update_cart_query_result = mysqli_query($con, $update_cart_query);
-			
-			
-			
-		}
+		
+		
+		
 		
 
 	?>
