@@ -2,6 +2,20 @@
 
 include("functions/functions.php");
 
+if(isset($_POST['continueShopping'])) {
+	
+	echo "<script>window.open('index.php','_self');</script>";
+	
+}
+
+if(isset($_POST['checkOut'])) {
+	
+	echo "<script>window.open('checkout.php','_self');</script>";
+	
+}
+
+
+
 ?>
 
 <html>
@@ -183,7 +197,30 @@ include("functions/functions.php");
 		
 					<td>
 					
-						<input type="text" size="4" name="qty" value="">	
+					<?PHP
+					
+					global $con;
+					
+					global $pro_id;
+	
+					$ip = getIp();
+					
+					$selectQuantityQuery = "SELECT qty FROM cart WHERE p_id = '$pro_id' AND ip_add = '$ip'";					
+					$selectQuantity = mysqli_query($con, $selectQuantityQuery);
+					
+					$quantityI = mysqli_fetch_array($selectQuantity);
+					
+					$quantity = $quantityI['qty'];
+					
+					?>
+					
+						<select onChange="" >
+							<option <?PHP if($quantity == '1') echo "selected"; ?> value="">1</option>
+							<option <?PHP if($quantity == '0') echo "selected"; ?> value="">0</option>
+							<option <?PHP if($quantity == '2') echo "selected"; ?> value="">2</option>
+							<option <?PHP if($quantity == '3') echo "selected"; ?> value="">3</option>
+							<option <?PHP if($quantity == '4') echo "selected"; ?> value="">4</option>
+						</select>
 					
 					</td>
 					
@@ -225,14 +262,9 @@ include("functions/functions.php");
 					
 				    <td><?PHP echo "Rs.".$single_price; ?></td>
 					
-						<td>
-						
-							<input type="submit" class="btn btn-danger" value="X" name="remove" />
-						
-						</td>
-					
-					
-					
+					<td>
+						<input type="submit" class="btn btn-danger" value="X" name="remove" />
+					</td>
 					
 				</tr>
 				
@@ -250,11 +282,15 @@ include("functions/functions.php");
 	
 		<hr style="border-width: 2px;"/>
 		
-		<div style="text-align: right;">
-		<!--	<input type="submit" class="btn btn-danger" value="Update Cart" name="update_cart" /> -->
-			<input type="submit" class="btn btn-primary" value="Continue Shopping" />
-			<input type="submit" class="btn btn-success" value="Check Out" href="#" />
-		</div>
+		<form action="cart.php" method="POST">
+		
+			<div style="text-align: right;">
+				<!--	<input type="submit" class="btn btn-danger" value="Update Cart" name="update_cart" /> -->
+				<input type="submit" class="btn btn-primary" value="Continue Shopping" name="continueShopping" />
+				<input type="submit" class="btn btn-success" value="Check Out" name="checkOut" />
+			</div>
+		
+		</form>
 		
 	</div>
 	
@@ -286,7 +322,6 @@ include("functions/functions.php");
 		}
 		
 	}
-	
 	
 	
 	/*
