@@ -1,5 +1,7 @@
 <?PHP
 
+session_start();
+
 // db connection and selection
 
 $con = mysqli_connect("localhost","root","","ecomm");
@@ -7,6 +9,39 @@ $con = mysqli_connect("localhost","root","","ecomm");
 if(mysqli_connect_errno()) {
 	
 	echo "Unable to connect to Database: ".mysqli_connect_error();
+}
+
+
+function isLoggedInNav() {
+	
+	if(isset($_SESSION['user'])) {
+		
+	$name = $_SESSION['user'];
+	
+	
+	
+	// echo $name;
+			
+	echo "
+	
+		<ul class='nav navbar-nav navbar-right'>
+			<li><a href='/ecomm/customer/profile.php'>Welcome, ".$name."</a></li> 			
+			<li><a href='/ecomm/customer/logout.php'>Logout</a></li> 			
+        </ul>";
+		
+		
+	}
+	
+	if(!isset($_SESSION['user'])) {
+		
+		echo "
+	
+		<ul class='nav navbar-nav navbar-right'>
+			<li><a href='/ecomm/customer/login.php'>Login</a></li> 			
+			<li><a href='/ecomm/customer/register.php'>Register</a></li>
+        </ul>";
+		
+	}
 }
 
 // getting user IP
@@ -21,6 +56,89 @@ function getIp() {
     }
  
     return $ip;
+	
+}
+
+// function for profile
+
+function profile() {
+	
+	if(isset($_SESSION['user'])) {
+		
+		global $con;
+		
+		$cust_id = $_SESSION['cust_id'];
+		
+		$profileQuery = "select * from customers where cust_id = '$cust_id'";
+		
+		$profileQueryResult = mysqli_query($con, $profileQuery);
+		
+		while($profileQueryResultRow = mysqli_fetch_array($profileQueryResult)) {
+		
+		$cust_name = $profileQueryResultRow['cust_name'];
+		
+		$cust_email = $profileQueryResultRow['cust_email'];
+		
+		$cust_country = $profileQueryResultRow['cust_country'];
+		
+		$cust_city = $profileQueryResultRow['cust_city'];
+		
+		$cust_image = $profileQueryResultRow['cust_image'];
+		
+		$cust_contact = $profileQueryResultRow['cust_contact'];
+		
+		echo "
+			
+			
+			<table class = 'table table-hover text-center'>
+				<tr>
+					<td width='200'><h4><strong>Profile picture:</strong></h4></td>
+					<td><img src='/ecomm/customer/images/".$cust_image."'  width='250' height='200' border='5' alt='Smiley face'></td>
+				</tr>
+				
+				<tr>
+					<td><h4><strong>Name:</strong></h4></td>
+					<td><h4>". $cust_name . "</h4></td>
+				</tr>
+				
+				<tr>
+					<td><h4><strong>Email:</strong></h4></td>
+					<td><h4>". $cust_email . "</h4></td>
+				</tr>
+
+				<tr>
+					<td><h4><strong>City:</strong></h4></td>
+					<td><h4>". $cust_city . "</h4></td>
+				</tr>
+
+				<tr>
+					<td><h4><strong>Country:</strong></h4></td>
+					<td><h4>". $cust_country . "</h4></td>
+				</tr>				
+				
+				<tr>
+					<td><h4><strong>Contact:</strong></h4></td>
+					<td><h4>". $cust_contact . "</h4></td>
+				</tr>				
+				
+				
+				
+				
+			</table>
+			
+			
+			
+		";
+		
+		}
+	}
+	
+	else {
+		
+		header('Location: ../index.php');
+	}
+		
+	
 }
 
 // creating the Cart

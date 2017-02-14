@@ -16,11 +16,10 @@ include("functions/functions.php");
 
 <body>
 	
-	<div class="">
 	<div class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a href="" class="navbar-brand">E-Commerce Site</a>
+          <a href="/ecomm/index.php" class="navbar-brand">E-Commerce Site</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -29,67 +28,54 @@ include("functions/functions.php");
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">All Products <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="../default/">Default</a></li>
-                <li class="divider"></li>
-                <li><a href="../cerulean/">Cerulean</a></li>
-                <li><a href="../cosmo/">Cosmo</a></li>
-                <li><a href="../cyborg/">Cyborg</a></li>
-                <li><a href="../darkly/">Darkly</a></li>
-                <li><a href="../flatly/">Flatly</a></li>
-                <li><a href="../journal/">Journal</a></li>
-                <li><a href="../lumen/">Lumen</a></li>
-                <li><a href="../paper/">Paper</a></li>
-                <li><a href="../readable/">Readable</a></li>
-                <li><a href="../sandstone/">Sandstone</a></li>
-                <li><a href="../simplex/">Simplex</a></li>
-                <li><a href="../slate/">Slate</a></li>
-                <li><a href="../spacelab/">Spacelab</a></li>
-                <li><a href="../superhero/">Superhero</a></li>
-                <li><a href="../united/">United</a></li>
-                <li><a href="../yeti/">Yeti</a></li>
-              </ul>
-            </li>
-            
-			<li>
-              <a href="">Track Order</a>
-            </li>
-            
-		
-			
-			<li>
-              <a href="cart.php">Shopping Cart (1)</a>
-            </li>
-			
-			<li>
-              <a href=""></a>
-            </li>
-			
-			
-          </ul>
+            <li>	
+			  <a href="allproducts.php">All Products</a>			
+			</li>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Welcome, Vinod Pawar</a></li>
-            <li><a href="#">Logout</a></li>
-          </ul>
+						
+	
+			<li>
+              <a href="cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
+            </li>
+			
+			<li>
+              <a href="#"></a>
+            </li>
+            
+			<li>
+              <a href="#"></a>
+            </li>
+			
+        </ul>
+
+		<div class="col-sm-4 col-md-4">
+			<form class="navbar-form" role="search" action="result.php">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search" name="user_query">
+				
+						<div class="input-group-btn">
+						
+							<button class="btn btn-success" type="submit" name="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+						
+						</div>
+				</div>
+			</form>
+		</div>
+		  
+		  
+			<?PHP
+		  	
+			isLoggedInNav();
+			
+			?>
+			
+          
 
         </div>
       </div>
 	  
     </div>
-	
-	</div>
-	
-	
-<div class="container alert alert-success">
 
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>1 Item(s) is added to Cart!</strong> <a href="cart.php" class="alert-link">View Cart</a>
-	
-	
-</div>
 
 	
 	<div class="container col-md-3">

@@ -1,6 +1,6 @@
 <?PHP
 
-include("functions/functions.php");
+include("../functions/functions.php");
 
 ?>
 
@@ -8,10 +8,10 @@ include("functions/functions.php");
 
 <head>
 
-<link rel="stylesheet" href="./styles/style.css" media="screen">
+<link rel="stylesheet" href="../styles/style.css" media="screen">
 <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-	<title>E-Commerce</title>
+	<title>E-Commerce Site</title>
 
 </head>
 
@@ -37,7 +37,7 @@ include("functions/functions.php");
 			<?PHP cart(); ?>			
 	
 			<li>
-              <a href="cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
+              <a href="../cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
             </li>
 			
 			<li>
@@ -64,12 +64,8 @@ include("functions/functions.php");
 			</form>
 		</div>
 		  
-		  
-         <?PHP
-		  	
-			isLoggedInNav();
-			
-		?>
+		  <?PHP isLoggedInNav(); ?>
+          
 
         </div>
       </div>
@@ -97,12 +93,16 @@ include("functions/functions.php");
 	
 	<?PHP getIp(); ?>
 	
-	<div class="container">
+	<div class="col-md-8">
 	
-		<h3>Disclaimer:</h3>
-		<hr style='border-width: 3px;'/>
+		<h3>Cart details</h3>
+		<hr  style="border-width: 2px;"/>
+	
+		<table class="table table-hover text-center">
 		
-	</div>
+		
+		
+		</table>
 	
 	<?PHP footer(); ?>
 	

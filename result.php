@@ -62,10 +62,11 @@ include("functions/functions.php");
 			</form>
 			</div>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="customer/account.php">Welcome, Vinod Pawar</a></li>
-            <li><a href="logout.php">Logout</a></li>
-          </ul>
+        <?PHP
+		  	
+			isLoggedInNav();
+			
+		?>
 
         </div>
       </div>

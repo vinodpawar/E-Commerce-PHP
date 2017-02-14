@@ -2,6 +2,7 @@
 
 include("functions/functions.php");
 
+
 ?>
 
 <html>
@@ -64,10 +65,8 @@ include("functions/functions.php");
 			</form>
 		</div>
 		  
-		  
-          <ul class="nav navbar-nav navbar-right">
-           <li><a href="login.php">Login</a></li>
-          </ul>
+		  <?PHP isLoggedInNav(); ?>
+          
 
         </div>
       </div>

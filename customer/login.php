@@ -2,6 +2,50 @@
 
 include("../functions/functions.php");
 
+if(isset($_SESSION['user'])) {
+
+	header('Location: ../index.php');
+	
+}
+
+if(isset($_POST['login'])) {
+	
+	global $con;
+	
+	$email = $_POST['email'];
+	$pwd = $_POST['password'];
+	
+	$loginQuery = "select * from customers where cust_email = '$email' AND cust_pwd = '$pwd'";
+	
+	$loginQueryResult = mysqli_query($con, $loginQuery);
+	
+	$loginQueryResultRow = mysqli_fetch_array($loginQueryResult);
+			
+			
+	
+	if(is_array($loginQueryResultRow)) {
+		
+		$_SESSION['cust_id'] = $loginQueryResultRow['cust_id'];
+		$_SESSION['user'] = $loginQueryResultRow['cust_name'];
+		$_SESSION['email'] = $loginQueryResultRow['cust_email'];
+		
+	}
+	
+	
+	else {
+		
+		echo "<script>window.alert('Try again.')</script>";
+		echo "<script>window.open('login.php','_self')</script>";
+	}
+	
+	if($_SESSION['user']) {
+		
+		header('Location: ../index.php');
+	}
+	
+	
+}
+
 ?>
 
 <html>
@@ -31,13 +75,13 @@ include("../functions/functions.php");
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>	
-			  <a href="allproducts.php">All Products</a>			
+			  <a href="../allproducts.php">All Products</a>			
 			</li>
 
 			<?PHP cart(); ?>			
 	
 			<li>
-              <a href="cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
+              <a href="../cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
             </li>
 			
 			<li>
@@ -64,12 +108,8 @@ include("../functions/functions.php");
 			</form>
 		</div>
 		  
-		  
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.php">Login</a></li>
-            
-          </ul>
-
+		   <?PHP isLoggedInNav(); ?>
+		 
         </div>
       </div>
 	  
@@ -121,7 +161,7 @@ include("../functions/functions.php");
 			
 			<div style="float: right;">
 			
-			<input type="submit" class="btn btn-success" value="Login">
+			<input type="submit" class="btn btn-success" value="Login" name="login">
 		
 			</div>
 		

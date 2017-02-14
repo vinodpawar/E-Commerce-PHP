@@ -2,6 +2,12 @@
 
 include("../functions/functions.php");
 
+if(isset($_SESSION['user'])) {
+
+	header('Location: ../index.php');
+	
+}
+
 if(isset($_POST['register'])) {
 	
 	global $con;
@@ -52,7 +58,6 @@ if(isset($_POST['register'])) {
 
 <body>
 	
-	
 	<div class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
@@ -69,10 +74,10 @@ if(isset($_POST['register'])) {
 			  <a href="allproducts.php">All Products</a>			
 			</li>
 
-			<?PHP cart(); ?>			
+						
 	
 			<li>
-              <a href="cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
+              <a href="../cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
             </li>
 			
 			<li>
@@ -86,7 +91,7 @@ if(isset($_POST['register'])) {
         </ul>
 
 		<div class="col-sm-4 col-md-4">
-			<form class="navbar-form" role="search" action="result.php">
+			<form class="navbar-form" role="search" action="../result.php">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Search" name="user_query">
 				
@@ -100,16 +105,19 @@ if(isset($_POST['register'])) {
 		</div>
 		  
 		  
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.php">Login</a></li>
-            
-          </ul>
+			<?PHP
+		  	
+			isLoggedInNav();
+			
+			?>
+			
+          
 
         </div>
       </div>
 	  
     </div>
-	
+
 	
 	
 		

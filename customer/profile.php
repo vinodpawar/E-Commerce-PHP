@@ -1,6 +1,8 @@
 <?PHP
 
-include("functions/functions.php");
+include("../functions/functions.php");
+
+
 
 ?>
 
@@ -8,15 +10,14 @@ include("functions/functions.php");
 
 <head>
 
-<link rel="stylesheet" href="./styles/style.css" media="screen">
+<link rel="stylesheet" href="../styles/style.css" media="screen">
 <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-	<title>E-Commerce</title>
+	<title>E-Commerce Site</title>
 
 </head>
 
 <body>
-	
 	
 	<div class="navbar navbar-default">
       <div class="container">
@@ -31,13 +32,13 @@ include("functions/functions.php");
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>	
-			  <a href="allproducts.php">All Products</a>			
+			  <a href="../allproducts.php">All Products</a>			
 			</li>
 
-			<?PHP cart(); ?>			
+						
 	
 			<li>
-              <a href="cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
+              <a href="../cart.php">Shopping Cart (<?PHP totalItems(); ?>)</a>
             </li>
 			
 			<li>
@@ -65,24 +66,24 @@ include("functions/functions.php");
 		</div>
 		  
 		  
-         <?PHP
+			<?PHP
 		  	
 			isLoggedInNav();
 			
-		?>
+			?>
+			
+          
 
         </div>
       </div>
 	  
     </div>
-	
-	
-	
+
 	
 
 
 	
-	<div class="container col-md-3">
+	<div class="col-md-3">
 	
 		<ul style="list-style:none;text-align:center;font-size:22px;" >
 		
@@ -97,16 +98,27 @@ include("functions/functions.php");
 	
 	<?PHP getIp(); ?>
 	
-	<div class="container">
-	
-		<h3>Disclaimer:</h3>
+	<div class="col-md-9" style="margin-bottom: 20;">
+		
+		<h3>Profile:</h3>
+		
+		
+		
+		
 		<hr style='border-width: 3px;'/>
+		
+		<?PHP profile(); ?>
+		
+		<input type='submit' class='btn btn-primary' value='Edit Profile' style=''>
+		
 		
 	</div>
 	
+	<div>
+	
 	<?PHP footer(); ?>
 	
-	
+	</div>
 	
 </body>
 
