@@ -93,7 +93,7 @@ include("../functions/functions.php");
 	
 	<?PHP getIp(); ?>
 	
-	<div class="col-md-8">
+	<div class="col-md-8" >
 	
 		<h3>Cart details</h3>
 		<hr  style="border-width: 2px;"/>

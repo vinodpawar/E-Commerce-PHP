@@ -105,6 +105,7 @@ if(isset($_POST['login'])) {
 						
 						</div>
 				</div>
+				
 			</form>
 		</div>
 		  
@@ -138,7 +139,7 @@ if(isset($_POST['login'])) {
 	
 	
 	
-	<div class="col-md-9" style="padding-bottom: 300px;">
+	<div class="col-md-9" style="padding-bottom: 150px;">
 	
 	<form action="login.php" method="POST">
 	
@@ -163,6 +164,11 @@ if(isset($_POST['login'])) {
 			
 			<input type="submit" class="btn btn-success" value="Login" name="login">
 		
+			</div>
+			<div style="padding-top: 50px;">
+			Demo Email: <strong>vinodpawar@gmail.com</strong><br/>
+			Demo Password: <strong>password</strong>
+			
 			</div>
 		
 		</div>
