@@ -14,6 +14,34 @@ if(isset($_POST['checkOut'])) {
 	
 }
 
+	
+	
+	if(isset($_POST['remove'])) {
+		
+		global $con;
+	
+		global $pro_id;
+	
+		$ip = getIp();
+		
+		$pro_id_delete = $_POST['hidden'];
+		
+		$delete_product = "delete from cart where p_id='$pro_id_delete' AND ip_add='$ip'";
+				
+		$run_delete = mysqli_query($con, $delete_product);
+							
+		if($run_delete) {
+		
+			echo "<script>window.alert('Are you sure?')</script>";
+			
+		
+		}
+		
+		
+		
+	}
+	
+
 if(isset($_POST['noQuantity'])) {
 	
 	global $con;
@@ -45,7 +73,7 @@ if(isset($_POST['noQuantity'])) {
 	
 	
 	
-	echo "<script>window.alert('$noQuantity $pro_id_update')</script>";
+	
 	
 	if($updateChangedQtyQueryResult) {
 		
@@ -359,32 +387,6 @@ if(isset($_POST['noQuantity'])) {
 
 	<?PHP
 	
-	global $con;
-	
-	global $pro_id;
-	
-	$ip = getIp();
-	
-	if(isset($_POST['remove'])) {
-		
-		$pro_id_delete = $_POST['hidden'];
-		
-		echo "<script>window.alert('Are you sure to remove this product from the cart?')</script>";
-		
-		$delete_product = "delete from cart where p_id='$pro_id_delete' AND ip_add='$ip'";
-				
-		$run_delete = mysqli_query($con, $delete_product);
-		
-		
-		
-				
-		if($run_delete) {
-		
-			echo "<script>window.open('cart.php','_self')</script>";
-		
-		}
-		
-	}
 	
 	
 	/*

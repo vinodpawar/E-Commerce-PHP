@@ -1,6 +1,6 @@
 <?PHP
 
-include("functions/functions.php");
+include("../functions/functions.php");
 
 ?>
 
@@ -8,10 +8,10 @@ include("functions/functions.php");
 
 <head>
 
-<link rel="stylesheet" href="./styles/style.css" media="screen">
+<link rel="stylesheet" href="../styles/style.css" media="screen">
 <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
-	<title>E-Commerce Site</title>
+	<title>E-Commerce</title>
 
 </head>
 
@@ -66,7 +66,8 @@ include("functions/functions.php");
 		  
 		  
           <ul class="nav navbar-nav navbar-right">
-           <li><a href="login.php">Login</a></li>
+            <li><a href="login.php">Login</a></li>
+            
           </ul>
 
         </div>
@@ -76,7 +77,7 @@ include("functions/functions.php");
 	
 	
 	
-	
+		
 
 
 	
@@ -95,19 +96,41 @@ include("functions/functions.php");
 	
 	<?PHP getIp(); ?>
 	
-	<div class="container">
 	
-		<?PHP 
+	
+	<div class="col-md-9" style="padding-bottom: 300px;">
+	
+	<form action="login.php" method="POST">
+	
+		<div class="col-md-8">
+		<h3>Login:</h3>
+		<hr style='border-width: 2px;'/>
+		<div class="form-group">
+		<label for="usr">Email:</label>
+		<input type="text" class="form-control" id="usr" name="email" placeholder="username@domain.com">
+		</div>
 		
-		getPro();
+		<div class="form-group">
+			<label for="pwd">Password:</label>
+			<input type="password" class="form-control" id="pwd" placeholder="password" name="password">
+		</div>
 		
-		getCatPro();
 		
-		getBrandPro();
 		
-		?>
+			<a href="#">Forget password?</a>
+			
+			<div style="float: right;">
+			
+			<input type="submit" class="btn btn-success" value="Login">
 		
+			</div>
+		
+		</div>
+		
+	</form>
 	</div>
+	
+	
 	
 	<?PHP footer(); ?>
 	
