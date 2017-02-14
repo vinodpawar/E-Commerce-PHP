@@ -14,6 +14,47 @@ if(isset($_POST['checkOut'])) {
 	
 }
 
+if(isset($_POST['noQuantity'])) {
+	
+	global $con;
+	
+	global $single_price;
+	
+	$pro_id_update = $_POST['hidden'];
+	
+	$noQuantity = $_POST['noQuantity'];
+	
+	
+	$selectPriceQueryC = "select product_price from products where product_id = '$pro_id_update' LIMIT 1";
+			
+	$selectPriceQueryResultC = mysqli_query($con,$selectPriceQueryC);
+			
+	while($selectPriceQueryRowC = mysqli_fetch_array($selectPriceQueryResultC)) {
+				
+		$selectPriceQueryRC = $selectPriceQueryRowC['product_price'];
+	
+	}
+	
+	$single_price = $selectPriceQueryRC;
+	
+	$single_price = $single_price * $noQuantity;
+	
+	$updateChangedQtyQuery = "UPDATE cart SET qty = '$noQuantity', total_price = '$single_price' WHERE p_id = '$pro_id_update'";
+	
+	$updateChangedQtyQueryResult = mysqli_query($con, $updateChangedQtyQuery);
+	
+	
+	
+	echo "<script>window.alert('$noQuantity $pro_id_update')</script>";
+	
+	if($updateChangedQtyQueryResult) {
+		
+		echo "<script>window.open('cart.php','_self')</script>";
+	}
+	
+	
+	
+	}
 
 
 
@@ -138,7 +179,7 @@ if(isset($_POST['checkOut'])) {
 	
 	$sr = 0;
 	
-	$sub_total = 0;
+	
 	
 	$total = 0;
 	
@@ -166,9 +207,7 @@ if(isset($_POST['checkOut'])) {
 		
 		$run_pro_price = mysqli_query($con, $pro_price);
 			
-		while($pp_price = mysqli_fetch_array($run_pro_price)) {
-			
-			$product_price = array($pp_price['product_price']);
+		while($pp_price = mysqli_fetch_array($run_pro_price)) {	
 			
 			$product_name = $pp_price['product_title'];
 			
@@ -176,10 +215,6 @@ if(isset($_POST['checkOut'])) {
 			
 			$single_price = $pp_price['product_price'];	
 
-			$total_price = array_sum($product_price);
-			
-			$sub_total += $total_price;
-	
 	?>
 	
 				<tr  align="center">
@@ -216,12 +251,14 @@ if(isset($_POST['checkOut'])) {
 					
 					?>
 					
+					
 						<select onChange="this.form.submit()" name="noQuantity">
-							<option <?PHP if($quantity == '1') echo "selected"; ?> value="1">1</option>
-							<option <?PHP if($quantity == '0') echo "selected"; ?> value="0">0</option>
+							
+							<option <?PHP if($quantity == '1') echo "selected"; ?> value="1">1</option>						
 							<option <?PHP if($quantity == '2') echo "selected"; ?> value="2">2</option>
 							<option <?PHP if($quantity == '3') echo "selected"; ?> value="3">3</option>
 							<option <?PHP if($quantity == '4') echo "selected"; ?> value="4">4</option>
+							
 						</select>
 					
 					</td>
@@ -230,41 +267,45 @@ if(isset($_POST['checkOut'])) {
 					
 					<?PHP
 			
-		}
+					}
 			
-						$qty = 0;
-						
-						$_SESSION['qty'] = $qty;
-			
-						$update_cart_query = "update cart set qty='$qty' where ip_add='$ip' AND p_id=''";
-			
-						$update_cart_query_result = mysqli_query($con, $update_cart_query);
-						
-						$_SESSION['qty'] = $qty;
-						
-						$sub_total = $sub_total * $qty;
-						
-						//echo "<script>alert('$qty, $ip, $pro_id');</script>";
-			
-						/*
-			
-						if($update_cart_query_result) {
-				
-							echo "<script>alert('Cart updated');</script>";
-						}
-			
-						else 
-							echo "<script>alert('Cart is not updated');</script>";
-						
-						}
-			
-						*/
-					
-					
-		
 					?>
 					
-				    <td><?PHP echo "Rs.".$single_price; ?></td>
+				    <td>
+					
+					<?PHP 
+					
+					
+					
+					global $con;
+					
+					global $pro_id;
+						
+					$selectPriceQuery = "select total_price from cart where p_id = '$pro_id'";
+			
+					$selectPriceQueryResult = mysqli_query($con,$selectPriceQuery);
+			
+					while($selectPriceQueryRow = mysqli_fetch_array($selectPriceQueryResult)) {
+				
+						$selectPriceQueryR = $selectPriceQueryRow['total_price'];
+						
+						$subTotal_product_priceU = array($selectPriceQueryRow['total_price']);
+			
+						$total_price_product = array_sum($subTotal_product_priceU);
+			
+						
+			
+					}
+						
+					echo "Rs. ".$selectPriceQueryR;
+					
+					
+					
+									
+					
+					?>
+					
+					</td>
 					
 					<td>
 						<input type="submit" class="btn btn-danger" value="X" name="remove" />
@@ -277,11 +318,24 @@ if(isset($_POST['checkOut'])) {
 				<?PHP }  ?>
 	
 		</table>
+	
+
 		
 		<hr  style="border-width: 2px;"/>
 	
 		<div class="" style="text-align: right;">
-			<h4>Sub total: <?PHP echo "Rs.".$sub_total; ?></h4>
+			
+			<h4>Sub total: <?PHP subTotal(); ?>
+			
+			<?PHP
+
+			
+					
+						
+			
+			?>
+			
+			</h4>
 		</div>	
 	
 		<hr style="border-width: 2px;"/>
@@ -355,19 +409,7 @@ if(isset($_POST['checkOut'])) {
 	*/	
 	
 		
-	/* if(isset($_POST['noQuantity'])) {
 	
-	$noQuantity = $_POST['noQuantity'];
-	
-	$insertChangedQtyQuery = "INSERT INTO cart(qty) VALUES($noQuantity) where p_id='$pro_id' AND ip_add='$ip'";
-	
-	
-	
-	echo $insertChangedQtyQuery;
-	
-	
-	
-	} */
 		
 		
 		

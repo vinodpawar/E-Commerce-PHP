@@ -1,5 +1,7 @@
 <?PHP
 
+// db connection and selection
+
 $con = mysqli_connect("localhost","root","","ecomm");
 
 if(mysqli_connect_errno()) {
@@ -34,15 +36,27 @@ function cart() {
 			$check_pro = "select * from cart where ip_add='$ip' AND p_id='$pro_id'";
 			
 			$run_check = mysqli_query($con, $check_pro);
+			
+			// fetching product price
+			
+			$selectPriceQuery = "select product_price from products where product_id = '$pro_id' LIMIT 1";
+			
+			$selectPriceQueryResult = mysqli_query($con,$selectPriceQuery);
+			
+			while($selectPriceQueryRow = mysqli_fetch_array($selectPriceQueryResult)) {
+				
+				$selectPriceQueryR = $selectPriceQueryRow['product_price'];
+			}
+			
 				
 			if(mysqli_num_rows($run_check)>0) {
 				
-				echo "";
+				echo "<script>window.alert('This product is already in the Cart! ')</script>";
 			}
 			
 			else {
 				
-				$insert_pro = "insert into cart(p_id,ip_add) values('$pro_id','$ip')";
+				$insert_pro = "insert into cart(p_id,ip_add,qty,total_price) values('$pro_id','$ip',1,'$selectPriceQueryR')";
 				
 				$run_pro = mysqli_query($con, $insert_pro);
 				
@@ -394,6 +408,28 @@ function getBrandPro() {
 	}	
 	
 	}
+	
+}
+
+function subTotal() {
+	
+	$ip = getIp();
+	
+	global $pro_id;
+	
+	global $con;
+	
+	$subTotalQuery = "SELECT SUM(total_price) AS TotalPriceSum FROM cart";
+	
+	$subTotalQueryResult = mysqli_query($con, $subTotalQuery);
+	
+	while($subTotalQueryResultRow = mysqli_fetch_array($subTotalQueryResult)) {
+		
+		$sub_total = $subTotalQueryResultRow['TotalPriceSum'];
+		
+	}
+	
+	echo "Rs. ".$sub_total;
 	
 }
 
