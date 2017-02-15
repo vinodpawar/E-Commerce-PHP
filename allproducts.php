@@ -130,7 +130,7 @@ include("functions/functions.php");
 				<p><b>Price: Rs.$pro_price</b></p>
 				</a>
 			
-				<a href='index.php?pro_id=$pro_id'><input type='button' value='Add to Cart' class='btn btn-primary' /></a>
+				<a href='index.php?addcart=$pro_id'><input type='button' value='Add to Cart' class='btn btn-primary' /></a>
 			
 			</div>
 			

@@ -2,6 +2,8 @@
 
 session_start();
 
+$addCartLocation = 'both';
+
 // db connection and selection
 
 $con = mysqli_connect("localhost","root","","ecomm");
@@ -170,6 +172,8 @@ function cart() {
 			if(mysqli_num_rows($run_check)>0) {
 				
 				echo "<script>window.alert('This product is already in the Cart! ')</script>";
+				
+				
 			}
 			
 			else {
@@ -328,6 +332,10 @@ function getPro() {
 		
 	global $con;
 	
+	global $addCartLocation;
+	
+	$addCartLocation = 'both';
+	
 	$get_pro = "SELECT * FROM products order by RAND() LIMIT 1,5";
 	
 	$run_pro = mysqli_query($con,$get_pro);
@@ -351,7 +359,7 @@ function getPro() {
 			<p><b>Price: Rs.$pro_price</b></p>
 			</a>
 			
-			<a href='index.php?addcart=$pro_id'><input type='button' value='Add to Cart' class='btn btn-primary' /></a>
+			<a href='index.php?addcart=$pro_id'><input type='submit' value='Add to Cart' class='btn btn-primary' name='addcart' /></a>
 			
 		</div>
 			
@@ -376,6 +384,10 @@ function getCatPro() {
 		$cat_id = $_GET['cat'];
 		
 	global $con;
+	
+	
+	
+	$addCartLocation = 'cat';
 	
 	$get_cat_pro = "SELECT * FROM products where product_cat='$cat_id'";
 	
@@ -429,7 +441,7 @@ function getCatPro() {
 			<p><b>Price: Rs.$pro_price</b></p>
 			</a>
 			
-			<a href='index.php?pro_id=$pro_id'><input type='button' value='Add to Cart' class='btn btn-primary' /></a>
+			<a href='index.php?addcart=$pro_id'><input type='submit' value='Add to Cart' class='btn btn-primary' name='addcart' /></a>
 			
 		</div>
 			
@@ -513,7 +525,7 @@ function getBrandPro() {
 			<p><b>Price: Rs.$proB_price</b></p>
 			</a>
 			
-			<a href='index.php?pro_id=$proB_id'><input type='button' value='Add to Cart' class='btn btn-primary' /></a>
+			<a href='index.php?addcart=$proB_id'><input type='submit' value='Add to Cart' class='btn btn-primary' name='addcart'/></a>
 			
 		</div>
 			

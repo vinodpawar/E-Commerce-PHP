@@ -2,7 +2,6 @@
 
 include("functions/functions.php");
 
-
 ?>
 
 <html>
