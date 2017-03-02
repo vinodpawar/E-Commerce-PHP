@@ -8,10 +8,13 @@ include("functions/functions.php");
 
 <head>
 
-<link rel="stylesheet" href="./styles/style.css" media="screen">
-<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
-
 	<title>E-Commerce Site</title>
+	<link rel="stylesheet" href="./styles/style.css" media="screen">
+	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+	<script src="./styles/jquery.js" ></script>
+	<script src="./styles/bootstrap.min.js" ></script>
+	<script src="./styles/main.js" ></script>
+	
 
 </head>
 
@@ -82,11 +85,25 @@ include("functions/functions.php");
 	
 		<ul style="list-style:none;text-align:center;font-size:22px;" >
 		
-			<li><h2>Categories</h2></li>
-			<?PHP getCats(); ?>
+		<li><h2>Categories</h2></li>
+		
+		<div id="category">
+		
+		
+		</div>
+		
+		<li><h2>Brands</h2></li>
+		
+		<div id="brand"></div>
+		
+		
 			
-			<li><h2>Brands</h2></li>
-			<?PHP getBrands(); ?>
+			
+			
+			
+			
+			
+		
 			
 		</ul>
 	</div>
@@ -95,15 +112,8 @@ include("functions/functions.php");
 	
 	<div class="container">
 	
-		<?PHP 
+	<div id="products"></div>
 		
-		getPro();
-		
-		getCatPro();
-		
-		getBrandPro();
-		
-		?>
 		
 	</div>
 	

@@ -148,12 +148,12 @@ if(isset($_POST['login'])) {
 		<hr style='border-width: 2px;'/>
 		<div class="form-group">
 		<label for="usr">Email:</label>
-		<input type="text" class="form-control" id="usr" name="email" placeholder="username@domain.com">
+		<input type="text" class="form-control" id="usr" name="email" placeholder="username@domain.com" required/>
 		</div>
 		
 		<div class="form-group">
 			<label for="pwd">Password:</label>
-			<input type="password" class="form-control" id="pwd" placeholder="password" name="password">
+			<input type="password" class="form-control" id="pwd" placeholder="password" name="password" required/>
 		</div>
 		
 		

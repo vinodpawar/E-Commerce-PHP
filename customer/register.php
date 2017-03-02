@@ -71,7 +71,7 @@ if(isset($_POST['register'])) {
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>	
-			  <a href="allproducts.php">All Products</a>			
+			  <a href="../allproducts.php">All Products</a>			
 			</li>
 
 						
